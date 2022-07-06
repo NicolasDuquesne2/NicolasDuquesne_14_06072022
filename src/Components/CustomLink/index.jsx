@@ -1,4 +1,5 @@
 import React from "react"
+import './customlink.css'
 
 function CustomLink({link}) {
     return(

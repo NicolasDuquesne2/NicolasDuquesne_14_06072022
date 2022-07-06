@@ -1,4 +1,5 @@
 import CustomLink from "../CustomLink"
+import './header.css'
 
 function Header (params) {
     const pars = params.params
