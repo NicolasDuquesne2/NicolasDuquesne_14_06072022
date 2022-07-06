@@ -1,7 +1,11 @@
+import React from "react"
 
 function Employees() {
     return (
-        <h1>Employees</h1>
+        <React.Fragment>
+            <h1>Employees</h1>
+            <a href="/">Home</a>
+        </React.Fragment>
     )
 }
 
