@@ -1,4 +1,11 @@
+.link-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
 .cust-link {
     color: #000;
     text-decoration: none;
+    margin-left: 0.5rem;
 }

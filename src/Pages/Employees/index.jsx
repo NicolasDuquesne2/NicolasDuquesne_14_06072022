@@ -4,9 +4,9 @@ import Header from "../../Components/Header"
 function Employees() {
     return (
         <React.Fragment>
-            <Header params={{title: "Current Employees", link: {text: "Home", href: "/"}}} />
+            <Header params={{title: "HRnet", link: {text: "Home", href: "/"}}} />
             <div className="container">
-
+                <h2 className="title">Current Employees</h2>
             </div>
         </React.Fragment>
     )
