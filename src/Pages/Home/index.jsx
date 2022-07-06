@@ -1,4 +1,5 @@
 import React from "react"
+import Form from "../../Components/Form"
 
 
 function Home() {
@@ -7,6 +8,7 @@ function Home() {
         <React.Fragment>
              <h1>Home</h1>
              <a href="/employees">Employees</a>
+             <Form />
         </React.Fragment>
     )
 }
