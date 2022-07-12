@@ -14,7 +14,7 @@ body {
 
 .background {
   min-height: 100vh;
-  background: rgb(62, 70, 63);
+  background: #e5ece5;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

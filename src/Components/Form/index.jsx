@@ -42,8 +42,9 @@ function Form() {
                     <option>Human Resources</option>
                     <option>Legal</option>
                 </select>
-
+                <input className="submit" type="submit" value="Save" />
             </form>
+
         </React.Fragment>
         
     )
