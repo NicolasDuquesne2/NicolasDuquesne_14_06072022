@@ -8,6 +8,7 @@ import Home from './Pages/Home'
 import Employees from './Pages/Employees'
 import ErrorPage from './Pages/Error'
 
+
 const root = createRoot(document.getElementById('root'));
 
 root.render(
