@@ -1,6 +1,17 @@
+//@ts-check
+import React from "react"
 import './footer.css'
 
+/**
+ * 
+ * @module Footer
+ */
 
+
+/**
+ * Footer renders the footer component
+ * @returns {React.ReactComponentElement}
+ */
 function Footer() {
     return(
         <div className="footer-container">

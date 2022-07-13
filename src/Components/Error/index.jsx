@@ -1,3 +1,16 @@
+//@ts-check
+import React from "react"
+
+/**
+ * 
+ * @module Error
+ */
+
+
+/**
+ * Error renders the  error message according the error code
+ * @returns {React.ReactComponentElement}
+ */
 function Error({type}) {
 
     let errorText = ""

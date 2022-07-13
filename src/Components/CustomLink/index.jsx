@@ -3,6 +3,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPeopleGroup, faHouse } from '@fortawesome/free-solid-svg-icons'
 import './customlink.css'
 
+/**
+ * 
+ * @module CustomLink
+ */
+
+
+/**
+ * Renders a custom link component for the header
+ * @returns {React.ReactComponentElement}
+ */
 function CustomLink({link}) {
     let icon = ""
 

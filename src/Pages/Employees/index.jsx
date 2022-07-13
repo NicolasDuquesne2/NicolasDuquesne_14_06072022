@@ -1,7 +1,19 @@
+//@ts-check
 import React from "react"
 import Header from "../../Components/Header"
 import Footer from '../../Components/Footer'
 
+
+/**
+ * 
+ * @module ErrorPage
+ */
+
+
+/**
+ * Renders the error page
+ * @returns {React.ReactComponentElement}
+ */
 function Employees() {
     return (
         <div className="background">

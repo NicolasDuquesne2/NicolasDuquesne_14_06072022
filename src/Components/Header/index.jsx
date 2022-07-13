@@ -1,6 +1,18 @@
+//@ts-check
+import React from "react"
 import CustomLink from "../CustomLink"
 import './header.css'
 
+/**
+ * 
+ * @module Header
+ */
+
+
+/**
+ * Renders the header component
+ * @returns {React.ReactComponentElement}
+ */
 function Header (params) {
     const pars = params.params
     return(

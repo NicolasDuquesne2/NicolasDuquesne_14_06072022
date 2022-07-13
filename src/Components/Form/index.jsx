@@ -1,6 +1,18 @@
+//@ts-check
 import React from "react"
 import './form.css'
 
+
+/**
+ * 
+ * @module Form
+ */
+
+
+/**
+ * Renders the form component
+ * @returns {React.ReactComponentElement}
+ */
 function Form() {
     return(
         <React.Fragment>
