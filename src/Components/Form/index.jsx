@@ -1,5 +1,6 @@
 //@ts-check
 import React from "react"
+import ModalForm from "../ModalForm"
 import './form.css'
 
 
@@ -14,10 +15,16 @@ import './form.css'
  * @returns {React.ReactComponentElement}
  */
 function Form() {
+
+    const onSubmit = () => {
+
+    }
+
+
     return(
         <React.Fragment>
             <h2>Create Employee</h2>
-            <form action="#" id="create-employee">
+            <form action="#" id="create-employee" onSubmit={onSubmit}>
             <label htmlFor="first-name">First Name</label>
                 <input type="text" id="first-name" />
 
@@ -56,7 +63,7 @@ function Form() {
                 </select>
                 <input className="submit" type="submit" value="Save" />
             </form>
-
+            <ModalForm />
         </React.Fragment>
         
     )

@@ -1,3 +1,4 @@
+//@ts-check
 import React from "react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPeopleGroup, faHouse } from '@fortawesome/free-solid-svg-icons'
@@ -14,7 +15,7 @@ import './customlink.css'
  * @returns {React.ReactComponentElement}
  */
 function CustomLink({link}) {
-    let icon = ""
+    let icon = null
 
     switch (link.text) {
         case "Home":
