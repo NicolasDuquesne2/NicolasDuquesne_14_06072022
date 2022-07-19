@@ -31,7 +31,7 @@ function Form() {
     let departmentError = null
     let modal = null
 
-    const onSubmit = () => {
+    const onSubmit = ({firstname, name, birthdate, startdate, street, city, state, zip, department}) => {
 
     }
 
