@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form"
 import SelectMenu from "../SelectMenu"
 import ModalForm from "../ModalForm"
 import { setForm } from "../../Redux/Form/action"
+import { setModal } from '../../Redux/Modal/action'
 import { departments } from "../../Params/departments"
 import { states } from "../../Params/states"
 import './form.css'
@@ -23,8 +24,9 @@ import './form.css'
 function Form() {
 
     const dispatch = useDispatch()
-    const datasForm = useSelector(state => state.FormReducer.data)
-    const [displayModal, setDisplayModal] = useState(false) 
+    //const datasForm = useSelector(state => state.FormReducer.data)
+    const displayModal = useSelector(state => state.ModalReducer.data)
+    //const [displayModal, setDisplayModal] = useState(false) 
     const { register, handleSubmit , setValue, formState: {errors} } = useForm()
     let nameError = null
     let firstNameError = null
@@ -35,11 +37,10 @@ function Form() {
     let stateError = null
     let zipError = null
     let departmentError = null
-    let modal = null
 
     const onSubmit = ({firstname, name, birthdate, startdate, street, city, state, zip, department}) => {
         dispatch(setForm({firstname, name, birthdate, startdate, street, city, state, zip, department}))
-        setDisplayModal(true)
+        dispatch(setModal(true))
     }
 
     errors.firstname? firstNameError = <p className="error-message">{errors.firstname.message}</p>: firstNameError = null
@@ -53,11 +54,6 @@ function Form() {
     errors.department? departmentError = <p className="error-message">{errors.zip.message}</p>: departmentError = null
 
     //
-
-    useEffect(() => {
-        displayModal? console.log("ok"): setDisplayModal(false)
-    }, [datasForm])
-
 
     return(
         <React.Fragment>
@@ -101,7 +97,9 @@ function Form() {
                 {departmentError}
                 <input className="submit" type="submit" value="Save" />
             </form>
-            {modal}
+            {displayModal && (
+                <ModalForm />
+            )}
         </React.Fragment>
         
     )
