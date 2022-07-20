@@ -1,7 +1,10 @@
 // @ts-nocheck
-import React from "react"
+import React, { useEffect, useState } from "react"
+import { useSelector, useDispatch } from "react-redux/es/exports"
 import { useForm } from "react-hook-form"
+import SelectMenu from "../SelectMenu"
 import ModalForm from "../ModalForm"
+import { setForm } from "../../Redux/Form/action"
 import { departments } from "../../Params/departments"
 import { states } from "../../Params/states"
 import './form.css'
@@ -19,6 +22,9 @@ import './form.css'
  */
 function Form() {
 
+    const dispatch = useDispatch()
+    const datasForm = useSelector(state => state.FormReducer.data)
+    const [displayModal, setDisplayModal] = useState(false) 
     const { register, handleSubmit , setValue, formState: {errors} } = useForm()
     let nameError = null
     let firstNameError = null
@@ -32,7 +38,8 @@ function Form() {
     let modal = null
 
     const onSubmit = ({firstname, name, birthdate, startdate, street, city, state, zip, department}) => {
-
+        dispatch(setForm({firstname, name, birthdate, startdate, street, city, state, zip, department}))
+        setDisplayModal(true)
     }
 
     errors.firstname? firstNameError = <p className="error-message">{errors.firstname.message}</p>: firstNameError = null
@@ -44,6 +51,13 @@ function Form() {
     errors.state? stateError = <p className="error-message">{errors.state.message}</p>: stateError = null
     errors.zip? zipError = <p className="error-message">{errors.zip.message}</p>: zipError = null
     errors.department? departmentError = <p className="error-message">{errors.zip.message}</p>: departmentError = null
+
+    //
+
+    useEffect(() => {
+        displayModal? console.log("ok"): setDisplayModal(false)
+    }, [datasForm])
+
 
     return(
         <React.Fragment>
@@ -72,7 +86,7 @@ function Form() {
                     {cityError}
                     <label htmlFor="state">State</label>
                     <select name="state" id="state" {...register("state", {required: "Please, select a state"})}>
-                        {states.map((state, index) => { return <option key={`option-state-${index}`}>{state.name}</option>})}
+                        <SelectMenu params={{keyPart: 'option-state-', datas: states, typeOfDatas: 'object', dataAttr: 'name'}} />
                     </select>
                     {stateError}
                     <label htmlFor="zip">Zip Code</label>
@@ -82,7 +96,7 @@ function Form() {
 
                 <label htmlFor="department">Department</label>
                 <select name="department" id="department" {...register("department", {required: "Please, select a department"})}>
-                    {departments.map((department, index) => { return <option key={`option-dep-${index}`}>{department}</option>})}
+                    <SelectMenu params={{keyPart: 'option-dep-', datas: departments, typeOfDatas: 'array'}} />
                 </select>
                 {departmentError}
                 <input className="submit" type="submit" value="Save" />
