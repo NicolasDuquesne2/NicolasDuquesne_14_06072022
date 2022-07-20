@@ -1,4 +1,17 @@
+//@ts-no-check
+import './selectmenu.css'
 
+
+/**
+ * 
+ * @module SelectMenu
+ */
+
+
+/**
+ * Renders a list of select menu options
+ * @returns {React.ReactComponentElement}
+ */
 function SelectMenu({params}) {
 
     console.log(params)
