@@ -1,4 +1,4 @@
-//@ts-check
+//@ts-no-check
 import React from "react"
 import { useSelector, useDispatch } from "react-redux/es/exports"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -16,18 +16,19 @@ import './modal.css'
  * Renders a modal displaying a message for the adding peaple form 
  * @returns {React.ReactComponentElement}
  */
-function ModalForm() {
+function ModalForm({params}) {
+    const text = params.text
 
     const dispatch = useDispatch()
 
     const onCrossClick = (() => {
-        //dispatch(setModal(false))
+        dispatch(setModal(false))
     })
 
     return(
         <div className="modal-background">
             <div className="modal-container">
-                <p>Employee Created</p>
+                <p>{text}</p>
                 <button className="modal-leave" onClick={onCrossClick}><FontAwesomeIcon icon= {faXmark} /></button>
             </div>
         </div>

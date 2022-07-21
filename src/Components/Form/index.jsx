@@ -98,7 +98,7 @@ function Form() {
                 <input className="submit" type="submit" value="Save" />
             </form>
             {displayModal && (
-                <ModalForm />
+                <ModalForm params={{text: 'Employee Created'}}/>
             )}
         </React.Fragment>
         
