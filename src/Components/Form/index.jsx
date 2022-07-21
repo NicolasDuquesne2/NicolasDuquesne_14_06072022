@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useEffect, useState } from "react"
+import React, {useEffect} from "react"
 import { useSelector, useDispatch } from "react-redux/es/exports"
 import { useForm } from "react-hook-form"
 import SelectMenu from "../SelectMenu"
@@ -24,9 +24,8 @@ import './form.css'
 function Form() {
 
     const dispatch = useDispatch()
-    //const datasForm = useSelector(state => state.FormReducer.data)
+    const datasForm = useSelector(state => state.FormReducer.data)
     const displayModal = useSelector(state => state.ModalReducer.data)
-    //const [displayModal, setDisplayModal] = useState(false) 
     const { register, handleSubmit , setValue, formState: {errors} } = useForm()
     let nameError = null
     let firstNameError = null
@@ -39,7 +38,8 @@ function Form() {
     let departmentError = null
 
     const onSubmit = ({firstname, name, birthdate, startdate, street, city, state, zip, department}) => {
-        dispatch(setForm({firstname, name, birthdate, startdate, street, city, state, zip, department}))
+        datasForm.push({firstname, name, birthdate, startdate, street, city, state, zip, department})
+        dispatch(setForm(datasForm))
         dispatch(setModal(true))
     }
 
@@ -53,7 +53,14 @@ function Form() {
     errors.zip? zipError = <p className="error-message">{errors.zip.message}</p>: zipError = null
     errors.department? departmentError = <p className="error-message">{errors.zip.message}</p>: departmentError = null
 
-    //
+    useEffect(() => {
+
+        if (datasForm.length > 0) {
+            console.log(datasForm)
+            localStorage.setItem('form', JSON.stringify(datasForm))
+        }
+
+    }, [datasForm])
 
     return(
         <React.Fragment>

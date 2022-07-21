@@ -1,7 +1,7 @@
 import { FORM } from "./type"
 
 const initialState = {
-    data: null
+    data: []
 }
 
 const FormReducer = (state= initialState, action) => {

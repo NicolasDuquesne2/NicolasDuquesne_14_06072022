@@ -1,5 +1,5 @@
-//@ts-check
-import React from "react"
+//@ts-no-check
+import React, {useEffect} from "react"
 import Header from "../../Components/Header"
 import Footer from '../../Components/Footer'
 
@@ -15,6 +15,12 @@ import Footer from '../../Components/Footer'
  * @returns {React.ReactComponentElement}
  */
 function Employees() {
+
+    useEffect(() => {
+        const datas = JSON.parse(localStorage.getItem('form'))
+        console.log(datas)
+    }, [])
+
     return (
         <div className="background">
             <Header params={{title: "HRnet", link: {text: "Home", href: "/"}}} />
