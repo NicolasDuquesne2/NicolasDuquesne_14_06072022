@@ -1,7 +1,10 @@
 //@ts-no-check
 import React, {useEffect} from "react"
+import { useSelector, useDispatch } from "react-redux/es/exports"
+import { setForm } from "../../Redux/Form/action"
 import Header from "../../Components/Header"
 import Footer from '../../Components/Footer'
+import Table from "../../Components/Table"
 
 
 /**
@@ -16,9 +19,12 @@ import Footer from '../../Components/Footer'
  */
 function Employees() {
 
+    const datasForm = useSelector(state => state.FormReducer.data)
+    const dispatch = useDispatch()
+
     useEffect(() => {
         const datas = JSON.parse(localStorage.getItem('form'))
-        console.log(datas)
+        dispatch(setForm(datas))
     }, [])
 
     return (
@@ -27,6 +33,7 @@ function Employees() {
             <div className="container">
                 <h2 className="title">Current Employees</h2>
             </div>
+            <Table datas={datasForm} />
             <Footer />
         </div>
     )
