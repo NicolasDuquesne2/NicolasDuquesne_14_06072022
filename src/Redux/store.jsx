@@ -1,14 +1,12 @@
-import { combineReducers, createStore, applyMiddleware } from 'redux'
-import thunk from 'redux-thunk'
-import FormReducer from './Form/formReducer'
-import ModalReducer from './Modal/modalReducer'
+import { configureStore } from '@reduxjs/toolkit'
+import formReducer from './Form/formSlice'
+import modalReducer from './Modal/modalSlice'
 
-const rootReducer = combineReducers({
-    FormReducer,
-    ModalReducer
+const store = configureStore({
+    reducer: {
+        form: formReducer,
+        modal: modalReducer
+    }
 })
-
-const store = createStore(rootReducer, applyMiddleware(thunk))
-
 
 export default store

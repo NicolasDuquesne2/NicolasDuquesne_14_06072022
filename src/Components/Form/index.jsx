@@ -1,11 +1,11 @@
-// @ts-nocheck
+// @ts-no-check
 import React, {useEffect} from "react"
 import { useSelector, useDispatch } from "react-redux/es/exports"
 import { useForm } from "react-hook-form"
 import SelectMenu from "../SelectMenu"
 import ModalForm from "../ModalForm"
-import { setForm } from "../../Redux/Form/action"
-import { setModal } from '../../Redux/Modal/action'
+import { add } from "../../Redux/Form/formSlice"
+import { change } from '../../Redux/Modal/modalSlice'
 import { departments } from "../../Params/departments"
 import { states } from "../../Params/states"
 import './form.css'
@@ -24,9 +24,9 @@ import './form.css'
 function Form() {
 
     const dispatch = useDispatch()
-    const datasForm = useSelector(state => state.FormReducer.data)
-    const displayModal = useSelector(state => state.ModalReducer.data)
-    const { register, handleSubmit , setValue, formState: {errors} } = useForm()
+    const datasForm = useSelector(state => state.form.value)
+    const displayModal = useSelector(state => state.modal.value)
+    const { register, handleSubmit, formState: {errors} } = useForm()
     let nameError = null
     let firstNameError = null
     let birthDateError = null
@@ -38,9 +38,8 @@ function Form() {
     let departmentError = null
 
     const onSubmit = ({firstname, name, birthdate, startdate, street, city, state, zip, department}) => {
-        datasForm.push({firstname, name, birthdate, startdate, street, city, state, zip, department})
-        dispatch(setForm(datasForm))
-        dispatch(setModal(true))
+        dispatch(add({firstname, name, birthdate, startdate, street, city, state, zip, department}))
+        dispatch(change())
     }
 
     errors.firstname? firstNameError = <p className="error-message">{errors.firstname.message}</p>: firstNameError = null
@@ -55,6 +54,7 @@ function Form() {
 
     useEffect(() => {
 
+        console.log(datasForm)
         if (datasForm.length > 0) {
             console.log(datasForm)
             localStorage.setItem('form', JSON.stringify(datasForm))

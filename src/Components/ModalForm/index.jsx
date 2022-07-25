@@ -1,9 +1,9 @@
 //@ts-no-check
 import React from "react"
-import { useSelector, useDispatch } from "react-redux/es/exports"
+import { useDispatch } from "react-redux/es/exports"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
-import { setModal } from '../../Redux/Modal/action'
+import { change } from '../../Redux/Modal/modalSlice'
 import './modal.css'
 
 /**
@@ -22,7 +22,7 @@ function ModalForm({params}) {
     const dispatch = useDispatch()
 
     const onCrossClick = (() => {
-        dispatch(setModal(false))
+        dispatch(change())
     })
 
     return(
