@@ -7,11 +7,14 @@ export const formSlice = createSlice( {
     },
     reducers: {
         add: (state, action) => {
-            console.log(action.payload)
             state.value.push(action.payload)
+        },
+
+        update: (state, action) => {
+            state.value = action.payload
         }
     }
 })
 
-export const { add } = formSlice.actions
+export const { add, update } = formSlice.actions
 export default formSlice.reducer

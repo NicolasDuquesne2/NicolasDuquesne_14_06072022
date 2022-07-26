@@ -1,7 +1,7 @@
 //@ts-no-check
 import React, {useEffect} from "react"
 import { useSelector, useDispatch } from "react-redux/es/exports"
-import { setForm } from "../../Redux/Form/action"
+import { update } from "../../Redux/Form/formSlice"
 import Header from "../../Components/Header"
 import Footer from '../../Components/Footer'
 import Table from "../../Components/Table"
@@ -19,13 +19,18 @@ import Table from "../../Components/Table"
  */
 function Employees() {
 
-    const datasForm = useSelector(state => state.FormReducer.data)
     const dispatch = useDispatch()
+    const datas = JSON.parse(localStorage.getItem('form'))
+    dispatch(update(datas))
+    const datasForm = useSelector(state => state.form.value)
 
-    useEffect(() => {
-        const datas = JSON.parse(localStorage.getItem('form'))
-        dispatch(setForm(datas))
-    }, [])
+    let columnsTitles = null
+    let columns = []
+
+    if (datas.length > 0) {
+        columnsTitles = Object.keys(datas[0])
+        columnsTitles.map((column) => (columns.push({label:column, sortable: true})))
+    }
 
     return (
         <div className="background">
@@ -33,10 +38,12 @@ function Employees() {
             <div className="container">
                 <h2 className="title">Current Employees</h2>
             </div>
-            <Table datas={datasForm} />
+            <Table datas={datasForm} columns={columns}/>
             <Footer />
         </div>
     )
 }
 
 export default Employees
+
+//  />
