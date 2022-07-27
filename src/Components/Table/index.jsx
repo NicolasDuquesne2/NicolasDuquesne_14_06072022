@@ -3,7 +3,6 @@ import TableBody from '../TableBody'
 import './table.css'
 
 function Table({datas, columns}) {
-    console.log(datas)
     return (
         datas.length > 0 && (
             <table className='table' >

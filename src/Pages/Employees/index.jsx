@@ -5,6 +5,7 @@ import { update } from "../../Redux/Form/formSlice"
 import Header from "../../Components/Header"
 import Footer from '../../Components/Footer'
 import Table from "../../Components/Table"
+import "./employees.css"
 
 
 /**
@@ -23,14 +24,18 @@ function Employees() {
     const datas = JSON.parse(localStorage.getItem('form'))
     dispatch(update(datas))
     const datasForm = useSelector(state => state.form.value)
+    let table = null
 
     let columnsAccessors = null
     const columnsLabels = ["First name", " Last name", "Start Date", "Department", "Date of Birth", "Street", "City", "State", "Zip Code"]
     let columns = []
 
-    if (datas.length > 0) {
+    if (datas != null && datas.length > 0) {
         columnsAccessors = Object.keys(datas[0])
         columnsAccessors.map((accessor, index) => (columns.push({label:columnsLabels[index], accessor, sortable: true})))
+        table = <Table datas={datasForm} columns={columns}/>
+    } else {
+        table = <p className="errMessage">No data to show</p>
     }
 
     return (
@@ -38,8 +43,8 @@ function Employees() {
             <Header params={{title: "HRnet", link: {text: "Home", href: "/"}}} />
             <div className="container">
                 <h2 className="title">Current Employees</h2>
+                {table}
             </div>
-            <Table datas={datasForm} columns={columns}/>
             <Footer />
         </div>
     )

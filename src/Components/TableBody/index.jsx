@@ -1,6 +1,5 @@
 
 function TableBody({datas, columns}) {
-    console.log(columns)
     return(
         <tbody>
             {datas.map((data, index) => (
