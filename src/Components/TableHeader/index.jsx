@@ -9,6 +9,8 @@ function TableHeader({columns}) {
     const sortField = useSelector(state => state.field.value)
     const order = useSelector(state => state.order.value)
     const dispatch = useDispatch()
+    let className = ""
+    let icon = null
 
     const handleSortingChange = (label) => {
         const switchOrder = label === sortField && order === "asc" ? "desc": "asc"
@@ -21,19 +23,29 @@ function TableHeader({columns}) {
             <tr>
                 {columns.map(({label, sortable}, index) => {
 
-                const cl = sortable
-                    ? sortField === label && order === "asc"
-                        ? "up"
-                        : sortField === label && order === "desc"
-                        ? "down"
-                        : "default"
-                    : ""
-                
+                    
+
+                    if (sortable) {
+                        if ( sortField === label && order === "asc") {
+                            className = "desc"
+                            icon = <FontAwesomeIcon icon= {faSortUp} />
+                        } else if (sortField === label && order === "desc") {
+                            className = "desc"
+                            icon = <FontAwesomeIcon icon= {faSortDown} />
+                        } else {
+                            className = "default"
+                            icon = <FontAwesomeIcon icon= {faSort} />
+                        }
+                    } else {
+                        className = ""
+                    }
+
+                    
                 return (
                     <th key={`theader-th-${index}`} 
                         onClick={sortable ? () => handleSortingChange(label): null}
-                        className={cl}>
-                        {label}
+                        className={className}>
+                        {label}<span> {icon}</span>
                     </th>
                 )
 
