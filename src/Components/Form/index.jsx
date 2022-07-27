@@ -36,9 +36,9 @@ function Form() {
     let stateError = null
     let zipError = null
     let departmentError = null
-
-    const onSubmit = ({firstname, name, birthdate, startdate, street, city, state, zip, department}) => {
-        dispatch(add({firstname, name, birthdate, startdate, street, city, state, zip, department}))
+    
+    const onSubmit = ({firstname, name, startdate, department, birthdate, street, city, state, zip}) => {
+        dispatch(add({firstname, name, startdate, department, birthdate, street, city, state, zip}))
         dispatch(change())
     }
 

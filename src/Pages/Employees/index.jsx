@@ -24,12 +24,13 @@ function Employees() {
     dispatch(update(datas))
     const datasForm = useSelector(state => state.form.value)
 
-    let columnsTitles = null
+    let columnsAccessors = null
+    const columnsLabels = ["First name", " Last name", "Start Date", "Department", "Date of Birth", "Street", "City", "State", "Zip Code"]
     let columns = []
 
     if (datas.length > 0) {
-        columnsTitles = Object.keys(datas[0])
-        columnsTitles.map((column) => (columns.push({label:column, sortable: true})))
+        columnsAccessors = Object.keys(datas[0])
+        columnsAccessors.map((accessor, index) => (columns.push({label:columnsLabels[index], accessor, sortable: true})))
     }
 
     return (

@@ -1,11 +1,12 @@
 
 function TableBody({datas, columns}) {
+    console.log(columns)
     return(
         <tbody>
             {datas.map((data, index) => (
                 <tr key={`tbody-tr-${index}`}>
-                    {columns.map(({label}, index) => (
-                        <td key={`tbody-td-${index}`}>{data[label]}</td>
+                    {columns.map(({accessor}, index) => (
+                        <td key={`tbody-td-${index}`}>{data[accessor]}</td>
                     ))}
                 </tr>
             ))}
