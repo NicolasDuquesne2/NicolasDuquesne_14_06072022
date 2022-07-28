@@ -1,14 +1,18 @@
+import { useSortableTable } from '../../Hooks/useSortableTable'
 import TableHeader from '../TableHeader'
 import TableBody from '../TableBody'
 import './table.css'
 
 function Table({datas, columns}) {
+
+    const [tableData, handleSorting] = useSortableTable(datas);
+    
     return (
-        datas.length > 0 && (
+        tableData.length > 0 && (
             <table className='table' >
                 <caption></caption>
-                <TableHeader columns={columns}/>
-                <TableBody columns={columns} datas={datas} />
+                <TableHeader columns={columns} handleSorting={handleSorting}/>
+                <TableBody columns={columns} datas={tableData} />
             </table>
         )
     )

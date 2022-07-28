@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons'
 import "./tableheader.css"
 
-function TableHeader({columns}) {
+function TableHeader({columns, handleSorting}) {
 
     const sortField = useSelector(state => state.field.value)
     const order = useSelector(state => state.order.value)
@@ -17,6 +17,7 @@ function TableHeader({columns}) {
         const switchOrder = accessor === sortField && order === "asc" ? "desc": "asc"
         dispatch(setField(accessor))
         dispatch(setOrder(switchOrder))
+        handleSorting(accessor, switchOrder)
     }
 
     return (

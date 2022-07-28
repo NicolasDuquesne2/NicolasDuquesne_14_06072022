@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux/es/exports"
 import { useForm } from "react-hook-form"
 import SelectMenu from "../SelectMenu"
 import ModalForm from "../ModalForm"
-import { add } from "../../Redux/Form/formSlice"
+import { add, update } from "../../Redux/Form/formSlice"
 import { change } from '../../Redux/Modal/modalSlice'
 import { departments } from "../../Params/departments"
 import { states } from "../../Params/states"
@@ -36,7 +36,9 @@ function Form() {
     let stateError = null
     let zipError = null
     let departmentError = null
-    
+
+    const datas = JSON.parse(localStorage.getItem('form'))
+    console.log(datasForm)
     const onSubmit = ({firstname, name, startdate, department, birthdate, street, city, state, zip}) => {
         dispatch(add({firstname, name, startdate, department, birthdate, street, city, state, zip}))
         dispatch(change())
@@ -54,13 +56,15 @@ function Form() {
 
     useEffect(() => {
 
-        console.log(datasForm)
         if (datasForm.length > 0) {
-            console.log(datasForm)
+            console.log("enregistre")
             localStorage.setItem('form', JSON.stringify(datasForm))
+        } else {
+            dispatch(update(datas))
         }
 
     }, [datasForm])
+
 
     return(
         <React.Fragment>

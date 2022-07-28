@@ -33,7 +33,7 @@ function Employees() {
     if (datas != null && datas.length > 0) {
         columnsAccessors = Object.keys(datas[0])
         columnsAccessors.map((accessor, index) => (columns.push({label:columnsLabels[index], accessor, sortable: true})))
-        table = <Table datas={datasForm} columns={columns}/>
+        table = <Table datas={datasForm} columns={columns} />
     } else {
         table = <p className="errMessage">No data to show</p>
     }
