@@ -1,19 +1,27 @@
-import { useSortableTable } from '../../Hooks/useSortableTable'
+import { useTableEvents } from '../../Hooks/useTableEvents'
 import TableHeader from '../TableHeader'
 import TableBody from '../TableBody'
+import Filter from '../Filter'
+import PaginationSelector from '../PaginationSelector'
 import './table.css'
 
 function Table({datas, columns}) {
 
-    const [tableData, handleSorting] = useSortableTable(datas);
-    
+    const [tableData, handleTableEvent] = useTableEvents(datas)
+
     return (
         tableData.length > 0 && (
-            <table className='table' >
-                <caption></caption>
-                <TableHeader columns={columns} handleSorting={handleSorting}/>
-                <TableBody columns={columns} datas={tableData} />
-            </table>
+            <div className='table-frame'>
+                <div className='table-frame-header'>
+                    <PaginationSelector />
+                    <Filter handleTableEvent={handleTableEvent}/>
+                </div>
+                <table className='table' >
+                    <caption></caption>
+                    <TableHeader columns={columns} handleTableEvent={handleTableEvent}/>
+                    <TableBody columns={columns} datas={tableData} />
+                </table>
+            </div>
         )
     )
 }

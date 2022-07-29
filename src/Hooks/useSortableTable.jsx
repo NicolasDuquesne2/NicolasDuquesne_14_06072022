@@ -1,12 +1,12 @@
 
-import { useState } from "react";
+import { useState } from "react"
 
 export const useSortableTable = (data) => {
-    const [tableData, setTableData] = useState(data)
-  
+    const [tableSorted, setTableData] = useState(data)
+    
     const handleSorting = (sortField, sortOrder) => {
       if (sortField) {
-        const sorted = [...tableData].sort((a, b) => {
+        const sorted = [...tableSorted].sort((a, b) => {
           if (a[sortField] === null) return 1
           if (b[sortField] === null) return -1
           if (a[sortField] === null && b[sortField] === null) return 0
@@ -20,5 +20,5 @@ export const useSortableTable = (data) => {
       }
     }
   
-    return [tableData, handleSorting]
+    return [tableSorted, handleSorting]
 }
