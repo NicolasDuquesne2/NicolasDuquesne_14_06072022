@@ -5,7 +5,14 @@ export const useFilterTable = (data) => {
     const [tableFiltred, setTableFiltred] = useState(data)
 
     const handleFilter = (filter) => {
-        const filtered = [...tableFiltred].filter(element => element.firstname.toLowerCase().includes(filter.toLowerCase()))
+        let filtered = null
+
+        if (filter !== "") {
+            filtered = [...tableFiltred].filter(element => element.firstname.toLowerCase().includes(filter.toLowerCase()))
+        } else {
+            filtered = data
+        }
+
         setTableFiltred(filtered)
     }
 

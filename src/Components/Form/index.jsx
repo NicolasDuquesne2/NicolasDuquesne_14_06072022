@@ -38,7 +38,6 @@ function Form() {
     let departmentError = null
 
     const datas = JSON.parse(localStorage.getItem('form'))
-    console.log(datasForm)
     const onSubmit = ({firstname, name, startdate, department, birthdate, street, city, state, zip}) => {
         dispatch(add({firstname, name, startdate, department, birthdate, street, city, state, zip}))
         dispatch(change())
@@ -57,7 +56,6 @@ function Form() {
     useEffect(() => {
 
         if (datasForm.length > 0) {
-            console.log("enregistre")
             localStorage.setItem('form', JSON.stringify(datasForm))
         } else {
             dispatch(update(datas))

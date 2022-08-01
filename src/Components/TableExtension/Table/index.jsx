@@ -8,9 +8,14 @@ import './table.css'
 function Table({datas, columns}) {
 
     const [tableData, handleTableEvent] = useTableEvents(datas)
+    let tableBody = null
+
+    if (tableData.length > 0) {
+        tableBody = <TableBody columns={columns} datas={tableData} />
+    }
+
 
     return (
-        tableData.length > 0 && (
             <div className='table-frame'>
                 <div className='table-frame-header'>
                     <PaginationSelector />
@@ -19,10 +24,9 @@ function Table({datas, columns}) {
                 <table className='table' >
                     <caption></caption>
                     <TableHeader columns={columns} handleTableEvent={handleTableEvent}/>
-                    <TableBody columns={columns} datas={tableData} />
+                    {tableBody}
                 </table>
             </div>
-        )
     )
 }
 
