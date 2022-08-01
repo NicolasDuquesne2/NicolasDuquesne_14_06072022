@@ -1,9 +1,12 @@
 import { useState } from "react"
 
 export const useGetObjectKeys = (object) => {
-    const [keys, setKeys] = useState([])
+    const [keys, setKeys] = useState(object)
 
-    setKeys(Object.keys(object))
+    const setKeysObject = () => {
+        setKeys(Object.keys(object))
+    }
 
-    return [keys]
+    console.log(keys)
+    return [keys, setKeysObject]
 } 
