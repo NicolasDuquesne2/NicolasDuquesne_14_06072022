@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux/es/exports"
 import { update } from "../../Redux/Form/formSlice"
 import Header from "../../Components/Header"
 import Footer from '../../Components/Footer'
-import Table from "../../Components/Table"
+import Table from "../../Components/TableExtension/Table"
 import "./employees.css"
 
 

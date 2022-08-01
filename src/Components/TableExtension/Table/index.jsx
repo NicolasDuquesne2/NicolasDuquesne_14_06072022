@@ -1,7 +1,7 @@
-import { useTableEvents } from '../../../Hooks/useTableEvents'
-import TableHeader from '../../TableHeader'
+import { useTableEvents } from '../../Hooks/useTableEvents'
+import TableHeader from '../TableHeader'
 import TableBody from '../TableBody'
-import Filter from '../../Filter'
+import Filter from './Filter'
 import PaginationSelector from '../../PaginationSelector'
 import './table.css'
 
