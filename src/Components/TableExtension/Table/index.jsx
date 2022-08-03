@@ -15,13 +15,13 @@ function Table({datas, columns}) {
     const [totalRows] = useState(datas.length)
     let tableBody = null
 
+    //get current table lines
+
+    const indexOfLastRow = currentPageIndex * rowsPerPage
+    const indexOfFirstRow = indexOfLastRow - rowsPerPage
+    const currentRows = tableData.slice(indexOfFirstRow, indexOfLastRow)
+
     if (tableData.length > 0) {
-
-        //get current table lines
-
-        const indexOfLastRow = currentPageIndex * rowsPerPage
-        const indexOfFirstRow = indexOfLastRow - rowsPerPage
-        const currentRows = tableData.slice(indexOfFirstRow, indexOfLastRow)
 
         tableBody = <TableBody columns={columns} datas={currentRows} />
     }
@@ -35,7 +35,7 @@ function Table({datas, columns}) {
     return (
             <div className='table-frame'>
                 <div className='table-frame-header'>
-                    <PaginationSelector setRowsNumber={setRowsNumber}/>
+                    <PaginationSelector setRowsNumber={setRowsNumber} />
                     <Filter handleTableEvent={handleTableEvent} />
                 </div>
                 <table className='table' >
@@ -43,7 +43,13 @@ function Table({datas, columns}) {
                     <TableHeader columns={columns} handleTableEvent={handleTableEvent}/>
                     {tableBody}
                 </table>
-                <Pagination rowsPerPage={rowsPerPage} totalRows={totalRows} paginate={paginate}/>
+                <Pagination 
+                    rowsPerPage={rowsPerPage} 
+                    totalRows={totalRows} 
+                    indexOfFirstRow={indexOfFirstRow} 
+                    indexOfLastRow={indexOfLastRow} 
+                    paginate={paginate}
+                />
             </div>
     )
 }

@@ -1,0 +1,37 @@
+.pagination-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.pagination-nav {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.pagination {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+}
+
+.page-button {
+    padding: 8px 14px;
+    border: none;
+    background: transparent;
+    font-size: 1rem;
+}
+
+.page-button:hover {
+    background: #dedada;
+}
+
+.highlighted{
+    padding: 8px 14px;
+    border: none;
+    background: linear-gradient(to top, #b9b6b6, 15%, transparent);
+    border-style:solid;
+    border-width: 0.5px;
+    border-radius: 2px;
+    border-color: #7b7878;
+    font-size: 1rem;
+}
