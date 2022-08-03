@@ -29,6 +29,7 @@ function Table({datas, columns}) {
     const paginate = (pageNumber) => setCurrentPageIndex(pageNumber)
     const setRowsNumber = (rowsNumber) => {
         console.log(rowsNumber)
+        setRowsPerPage(rowsNumber)
     }
 
     return (

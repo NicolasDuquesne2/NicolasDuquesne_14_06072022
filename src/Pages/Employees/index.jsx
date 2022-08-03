@@ -5,6 +5,7 @@ import { update } from "../../Redux/Form/formSlice"
 import Header from "../../Components/Header"
 import Footer from '../../Components/Footer'
 import Table from "../../Components/TableExtension/Table"
+import { dataMoke } from "../../Params/dataMoke"
 import "./employees.css"
 
 
@@ -30,10 +31,11 @@ function Employees() {
     const columnsLabels = ["First name", " Last name", "Start Date", "Department", "Date of Birth", "Street", "City", "State", "Zip Code"]
     let columns = []
 
+
     if (datas != null && datas.length > 0) {
         columnsAccessors = Object.keys(datas[0])
         columnsAccessors.map((accessor, index) => (columns.push({label:columnsLabels[index], accessor, sortable: true})))
-        table = <Table datas={datasForm} columns={columns} />
+        table = <Table datas={dataMoke} columns={columns} />
     } else {
         table = <p className="errMessage">No data to show</p>
     }
