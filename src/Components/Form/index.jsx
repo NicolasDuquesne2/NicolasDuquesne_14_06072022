@@ -1,7 +1,8 @@
 // @ts-no-check
 import React, {useEffect} from "react"
 import { useSelector, useDispatch } from "react-redux/es/exports"
-import { useForm } from "react-hook-form"
+import DatePickerComp from "../DatePicker"
+import { useForm, Controller } from "react-hook-form"
 import SelectMenu from "../SelectMenu"
 import ModalForm from "../ModalForm"
 import { add, update } from "../../Redux/Form/formSlice"
@@ -26,7 +27,7 @@ function Form() {
     const dispatch = useDispatch()
     const datasForm = useSelector(state => state.form.value)
     const displayModal = useSelector(state => state.modal.value)
-    const { register, handleSubmit, formState: {errors} } = useForm()
+    const { control, register, handleSubmit, formState: {errors} } = useForm()
     let nameError = null
     let firstNameError = null
     let birthDateError = null
@@ -75,10 +76,24 @@ function Form() {
                 <input type="text" id="name" {...register("name", {required: "Please, enter a valid name"})}/>
                 {nameError}
                 <label htmlFor="birthdate">Date of Birth</label>
-                <input id="birthdate" type="text" {...register("birthdate", {required: "Please, enter a valid birth date"})}/>
+                <Controller 
+                    control={control}
+                    id='birthdate'
+                    {...register("birthdate", {required: "Please, enter a valid birth date"})}
+                    render={({ field }) => (
+                       <DatePickerComp />
+                     )}
+                />
                 {birthDateError}
                 <label htmlFor="startdate">Start Date</label>
-                <input id="startdate" type="text" {...register("startdate", {required: "Please, enter a valid date"})}/>
+                <Controller 
+                    control={control}
+                    id='startdate'
+                    {...register("startdate", {required: "Please, enter a valid date"})}
+                    render={({ field }) => (
+                       <DatePickerComp />
+                     )}
+                />
                 {startDateError}
                 <fieldset className="address">
                     <legend>Address</legend>
