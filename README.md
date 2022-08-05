@@ -9,7 +9,7 @@ HRnet React is a a react version of a legacy app build with JQuery & JQuery [her
 ## 2. Project installation
 
 ### 2.1 Prerequisites
-- [NodeJS(**version 12.8**)](https://nodejs.org/en/)
+- [NodeJS(**version 16 or newer**)](https://nodejs.org/en/)
 
 ### 2.2 Launching the project
 
