@@ -10,7 +10,6 @@ function Pagination({ rowsPerPage, totalRows, indexOfFirstRow, indexOfLastRow, p
     const pageNumbersArr = []
     const [clickedButton, setClickedButton] = useState(null)
 
-    console.log(clickedButton)
 
     for(let i = 1; i <= totalPages; i++) {
         pageNumbersArr.push(i)
@@ -37,12 +36,13 @@ function Pagination({ rowsPerPage, totalRows, indexOfFirstRow, indexOfLastRow, p
         const number = Number(clickedButton.innerText)
         const arrayIndex = number -1
         let newButton = null
+        console.log(number)
 
         switch(sideButton.id) {
             case 'previous':
                 if (arrayIndex > 0) {
-                    number - 1 === 1? previousButtonRef.current.disabled = true: previousButtonRef.current.disabled = false
-                    number + 1 === totalPages? nextButtonRef.current.disabled = true: nextButtonRef.current.disabled = false
+                    number - 1 > 1? previousButtonRef.current.disabled = false: previousButtonRef.current.disabled = true
+                    number - 1 < totalPages?  nextButtonRef.current.disabled = false: nextButtonRef.current.disabled = true
                     clickedButton.classList.remove('highlighted')
                     clickedButton.classList.add('page-button')
                     newButton = numberButtonsRef.current[arrayIndex-1]
@@ -54,8 +54,8 @@ function Pagination({ rowsPerPage, totalRows, indexOfFirstRow, indexOfLastRow, p
                 break
             case 'next':
                 if(arrayIndex < totalPages-1) {
-                    number -1 === 1? previousButtonRef.current.disabled = true: previousButtonRef.current.disabled = false
-                    number + 1 === totalPages? nextButtonRef.current.disabled = true: nextButtonRef.current.disabled = false
+                    number + 1 > 1? previousButtonRef.current.disabled = false: previousButtonRef.current.disabled = true
+                    number + 1 < totalPages?  nextButtonRef.current.disabled = false: nextButtonRef.current.disabled = true
                     clickedButton.classList.remove('highlighted')
                     clickedButton.classList.add('page-button')
                     newButton = numberButtonsRef.current[arrayIndex+1]
