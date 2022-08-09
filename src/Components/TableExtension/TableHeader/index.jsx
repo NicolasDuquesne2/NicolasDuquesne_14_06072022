@@ -21,9 +21,7 @@ function TableHeader({columns, handleTableEvent}) {
         <thead>
             <tr>
                 {columns.map(({label, accessor, sortable}, index) => {
-
                     
-
                     if (sortable) {
                         if ( sortField === accessor && order === "asc") {
                             icon = <span className="arrow-black"> <FontAwesomeIcon icon= {faSortUp} /></span>

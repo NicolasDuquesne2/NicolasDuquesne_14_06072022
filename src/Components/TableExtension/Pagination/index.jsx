@@ -8,72 +8,67 @@ function Pagination({ rowsPerPage, totalRows, indexOfFirstRow, indexOfLastRow, p
     const numberButtonsRef = useRef([])
     const totalPages = Math.ceil(totalRows/rowsPerPage)
     const pageNumbersArr = []
-    const [clickedButton, setClickedButton] = useState(null)
-
+    const [pageNumber, setPageNumber] = useState(1)
 
     for(let i = 1; i <= totalPages; i++) {
         pageNumbersArr.push(i)
     }
 
-    const onPageButton = (e, number) => {
-
-        if(clickedButton) {
-            clickedButton.classList.remove('highlighted')
-            clickedButton.classList.add('page-button')
+    const addToRefs = (element) => {
+        if(element && !numberButtonsRef.current.includes(element)) {
+            numberButtonsRef.current.push(element)
         }
+    }
 
-        number > 1? previousButtonRef.current.disabled = false: previousButtonRef.current.disabled = true
-        number < totalPages?  nextButtonRef.current.disabled = false: nextButtonRef.current.disabled = true
-
-        e.target.classList.add('highlighted')
-        e.target.classList.remove('page-button')
-        setClickedButton(e.target)
+    const onPageButton = (e, number) => {
+        const indexPageNumber = pageNumber -1 
+        numberButtonsRef.current[indexPageNumber].classList.add('page-button')
+        numberButtonsRef.current[indexPageNumber].classList.remove('highlighted')
+        setPageNumber(number)
         paginate(number)
     }
 
     const onSideButton = (e) => {
+
         const sideButton = e.target
-        const number = Number(clickedButton.innerText)
-        const arrayIndex = number -1
-        let newButton = null
-        console.log(number)
+        const indexPageNumber = pageNumber -1
+        let localPageNumber = null
 
         switch(sideButton.id) {
             case 'previous':
-                if (arrayIndex > 0) {
-                    number - 1 > 1? previousButtonRef.current.disabled = false: previousButtonRef.current.disabled = true
-                    number - 1 < totalPages?  nextButtonRef.current.disabled = false: nextButtonRef.current.disabled = true
-                    clickedButton.classList.remove('highlighted')
-                    clickedButton.classList.add('page-button')
-                    newButton = numberButtonsRef.current[arrayIndex-1]
-                    newButton.classList.add('highlighted')
-                    newButton.classList.remove('page-button')
-                    setClickedButton(newButton)
-                    paginate(number - 1)
+                if(pageNumber > 1) {
+                    localPageNumber = pageNumber -1
                 }
                 break
             case 'next':
-                if(arrayIndex < totalPages-1) {
-                    number + 1 > 1? previousButtonRef.current.disabled = false: previousButtonRef.current.disabled = true
-                    number + 1 < totalPages?  nextButtonRef.current.disabled = false: nextButtonRef.current.disabled = true
-                    clickedButton.classList.remove('highlighted')
-                    clickedButton.classList.add('page-button')
-                    newButton = numberButtonsRef.current[arrayIndex+1]
-                    newButton.classList.add('highlighted')
-                    newButton.classList.remove('page-button')
-                    setClickedButton(newButton)
-                    paginate(number + 1)
+                if(pageNumber < totalPages) {
+                    localPageNumber = pageNumber + 1
                 }
                 break
             default:
         }
 
+        if(localPageNumber) {
+            numberButtonsRef.current[indexPageNumber].classList.add('page-button')
+            numberButtonsRef.current[indexPageNumber].classList.remove('highlighted')
+            setPageNumber(localPageNumber)
+            paginate(localPageNumber)
+        }
     }
 
     useEffect(() => {
-        setClickedButton(numberButtonsRef.current[0])
-        previousButtonRef.current.disabled = true
-    }, [])
+        const indexPageNumber = pageNumber -1
+        numberButtonsRef.current[indexPageNumber].classList.add('highlighted')
+        numberButtonsRef.current[indexPageNumber].classList.remove('page-button')
+        pageNumber > 1? previousButtonRef.current.disabled = false: previousButtonRef.current.disabled = true
+        pageNumber < totalPages?  nextButtonRef.current.disabled = false: nextButtonRef.current.disabled = true
+        
+        if(totalPages === 1) {
+            nextButtonRef.current.disabled = true
+            previousButtonRef.current.disabled = true
+        }
+
+    }, [pageNumber, totalPages])
 
     return(
         <section className='pagination-wrapper'>
@@ -84,18 +79,15 @@ function Pagination({ rowsPerPage, totalRows, indexOfFirstRow, indexOfLastRow, p
                         <li>
                             <button className='sideButton' id="previous"  ref={previousButtonRef} onClick={(e) => onSideButton(e)}>Previous</button>
                         </li>
-                        {pageNumbersArr.map((number) => {
-                            let clName = ""
-                            number === 1? clName="highlighted": clName="page-button"
-
+                        {pageNumbersArr.map((pnumber) => {
                             return(
-                                <li key={`page-number${number}`} >
+                                <li key={`page-number${pnumber}`} >
                                     <button
-                                        ref={(element) => numberButtonsRef.current.push(element)} 
-                                        onClick={(e) => onPageButton(e, number)} 
-                                        className={clName} 
-                                        id={`button-${number}`}>
-                                        {number}
+                                        ref={addToRefs} 
+                                        onClick={(e) => onPageButton(e, pnumber)} 
+                                        className="page-button"
+                                        id={`button-${pnumber}`}>
+                                        {pnumber}
                                     </button>
                                 </li>
                             )
