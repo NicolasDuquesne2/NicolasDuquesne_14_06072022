@@ -9,7 +9,7 @@ const store = configureStore({
         form: formReducer,
         modal: modalReducer,
         order: orderSlice,
-        field: fieldSlice
+        field: fieldSlice,
     }
 })
 

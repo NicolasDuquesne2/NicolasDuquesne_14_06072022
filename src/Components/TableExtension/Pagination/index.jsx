@@ -1,37 +1,28 @@
-import { useState, useEffect, useRef } from 'react'
+import {useEffect, useRef } from 'react'
+
 import './pagination.css'
 
-function Pagination({ rowsPerPage, totalRows, indexOfFirstRow, indexOfLastRow, paginate }) {
-    
+function Pagination({pageNumber, rowsPerPage, totalRows, firstRowNumber, lastRowNumber, paginate, changePageNumber, addToRefs, highlightButton, disHighlightButton}) {
+
     const nextButtonRef = useRef(null)
     const previousButtonRef = useRef(null)
-    const numberButtonsRef = useRef([])
     const totalPages = Math.ceil(totalRows/rowsPerPage)
     const pageNumbersArr = []
-    const [pageNumber, setPageNumber] = useState(1)
 
     for(let i = 1; i <= totalPages; i++) {
         pageNumbersArr.push(i)
     }
 
-    const addToRefs = (element) => {
-        if(element && !numberButtonsRef.current.includes(element)) {
-            numberButtonsRef.current.push(element)
-        }
-    }
 
     const onPageButton = (e, number) => {
-        const indexPageNumber = pageNumber -1 
-        numberButtonsRef.current[indexPageNumber].classList.add('page-button')
-        numberButtonsRef.current[indexPageNumber].classList.remove('highlighted')
-        setPageNumber(number)
+        disHighlightButton(pageNumber)
+        changePageNumber(number)
         paginate(number)
     }
 
     const onSideButton = (e) => {
 
         const sideButton = e.target
-        const indexPageNumber = pageNumber -1
         let localPageNumber = null
 
         switch(sideButton.id) {
@@ -49,17 +40,15 @@ function Pagination({ rowsPerPage, totalRows, indexOfFirstRow, indexOfLastRow, p
         }
 
         if(localPageNumber) {
-            numberButtonsRef.current[indexPageNumber].classList.add('page-button')
-            numberButtonsRef.current[indexPageNumber].classList.remove('highlighted')
-            setPageNumber(localPageNumber)
+            
+            disHighlightButton(pageNumber)
+            changePageNumber(localPageNumber)
             paginate(localPageNumber)
         }
     }
 
     useEffect(() => {
-        const indexPageNumber = pageNumber -1
-        numberButtonsRef.current[indexPageNumber].classList.add('highlighted')
-        numberButtonsRef.current[indexPageNumber].classList.remove('page-button')
+        highlightButton(pageNumber)
         pageNumber > 1? previousButtonRef.current.disabled = false: previousButtonRef.current.disabled = true
         pageNumber < totalPages?  nextButtonRef.current.disabled = false: nextButtonRef.current.disabled = true
         
@@ -72,7 +61,7 @@ function Pagination({ rowsPerPage, totalRows, indexOfFirstRow, indexOfLastRow, p
 
     return(
         <section className='pagination-wrapper'>
-            <p className='entries-info'>{`Showing ${indexOfFirstRow + 1} to ${indexOfLastRow } of ${totalRows} entries`}</p>
+            <p className='entries-info'>{`Showing ${firstRowNumber} to ${lastRowNumber} of ${totalRows} entries`}</p>
             <div className='pagination-wrapper'>
                 <nav className="pagination-nav">
                     <ul className="pagination" id="pagList">

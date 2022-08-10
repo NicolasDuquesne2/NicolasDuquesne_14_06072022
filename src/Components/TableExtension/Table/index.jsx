@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useTableEvents } from '../Hooks/useTableEvents'
 import TableHeader from '../TableHeader'
 import TableBody from '../TableBody'
@@ -13,6 +13,9 @@ function Table({datas, columns}) {
     const [currentPageIndex, setCurrentPageIndex] = useState(1)
     const [rowsPerPage, setRowsPerPage] = useState(10)
     const [totalRows] = useState(datas.length)
+    const [pageNumber, setPageNumber] = useState(1)
+    const numberButtonsRef = useRef([])
+
     let tableBody = null
 
     //get current table lines
@@ -20,18 +23,43 @@ function Table({datas, columns}) {
     const indexOfLastRow = currentPageIndex * rowsPerPage
     const indexOfFirstRow = indexOfLastRow - rowsPerPage
     const currentRows = tableData.slice(indexOfFirstRow, indexOfLastRow)
+    const firstRowNumber = indexOfFirstRow + 1
+    const lastRowNumber = firstRowNumber + currentRows.length -1
 
     if (tableData.length > 0) {
-
         tableBody = <TableBody columns={columns} datas={currentRows} />
     }
 
     const paginate = (pageNumber) => setCurrentPageIndex(pageNumber)
 
+    const changePageNumber = (pageNumber) => {
+        setPageNumber(pageNumber)
+    } 
 
     const setRowsNumber = (rowsNumber) => {
+        disHighlightButton(pageNumber)
+        numberButtonsRef.current = []
         setRowsPerPage(rowsNumber)
         paginate(1)
+        changePageNumber(1)
+    }
+
+    const addToRefs = (element) => {
+        if(element && !numberButtonsRef.current.includes(element)) {
+            numberButtonsRef.current.push(element)
+        }
+    }
+
+    const highlightButton = (pageNumber) => {
+        const indexPageNumber = pageNumber -1
+        numberButtonsRef.current[indexPageNumber].classList.add('highlighted')
+        numberButtonsRef.current[indexPageNumber].classList.remove('page-button')
+    }
+
+    const disHighlightButton = (pageNumber) => {
+        const indexPageNumber = pageNumber -1
+        numberButtonsRef.current[indexPageNumber].classList.add('page-button')
+        numberButtonsRef.current[indexPageNumber].classList.remove('highlighted')
     }
 
     return (
@@ -45,12 +73,18 @@ function Table({datas, columns}) {
                     <TableHeader columns={columns} handleTableEvent={handleTableEvent}/>
                     {tableBody}
                 </table>
-                <Pagination 
+                <Pagination
+                    pageNumber={pageNumber}
+                    numberButtonsRef={numberButtonsRef}
                     rowsPerPage={rowsPerPage} 
                     totalRows={totalRows} 
-                    indexOfFirstRow={indexOfFirstRow} 
-                    indexOfLastRow={indexOfLastRow} 
+                    firstRowNumber={firstRowNumber} 
+                    lastRowNumber={lastRowNumber} 
                     paginate={paginate}
+                    changePageNumber={changePageNumber}
+                    addToRefs={addToRefs}
+                    highlightButton={highlightButton}
+                    disHighlightButton={disHighlightButton}
                 />
             </div>
     )
