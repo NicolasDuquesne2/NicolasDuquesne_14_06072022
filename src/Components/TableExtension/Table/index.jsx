@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useTableEvents } from '../Hooks/useTableEvents'
 import TableHeader from '../TableHeader'
 import TableBody from '../TableBody'
@@ -12,7 +12,7 @@ function Table({datas, columns}) {
     const [tableData, handleTableEvent] = useTableEvents(datas)
     const [currentPageIndex, setCurrentPageIndex] = useState(1)
     const [rowsPerPage, setRowsPerPage] = useState(10)
-    const [totalRows] = useState(datas.length)
+    const [totalRows, setTotalRows] = useState(tableData.length)
     const [pageNumber, setPageNumber] = useState(1)
     const numberButtonsRef = useRef([])
 
@@ -27,6 +27,7 @@ function Table({datas, columns}) {
     const lastRowNumber = firstRowNumber + currentRows.length -1
 
     if (tableData.length > 0) {
+        console.log(totalRows)
         tableBody = <TableBody columns={columns} datas={currentRows} />
     }
 
@@ -62,6 +63,10 @@ function Table({datas, columns}) {
         numberButtonsRef.current[indexPageNumber].classList.remove('highlighted')
     }
 
+    useEffect(() => {
+        setTotalRows(tableData.length)
+    }, [tableData])
+
     return (
             <div className='table-frame'>
                 <div className='table-frame-header'>
@@ -69,7 +74,6 @@ function Table({datas, columns}) {
                     <Filter handleTableEvent={handleTableEvent} />
                 </div>
                 <table className='table' >
-                    <caption></caption>
                     <TableHeader columns={columns} handleTableEvent={handleTableEvent}/>
                     {tableBody}
                 </table>
