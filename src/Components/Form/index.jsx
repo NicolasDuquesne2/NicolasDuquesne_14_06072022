@@ -95,7 +95,7 @@ function Form() {
                 <label htmlFor="startdate">Start Date</label>
                 <Controller 
                     control={control}
-                    rules={{ required: true }}
+                    rules={{ required: "Please enter a valid date" }}
                     name='startdate'
                     render={({ field: { ref, ...field }, fieldState: {invalid, startdate} }) => (
                        <DatePickerComp 
