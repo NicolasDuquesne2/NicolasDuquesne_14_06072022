@@ -1,6 +1,6 @@
 //@ts-no-check
 import React from "react"
-import { useSelector, useDispatch } from "react-redux/es/exports"
+import { useDispatch } from "react-redux/es/exports"
 import { update } from "../../Redux/Form/formSlice"
 import Header from "../../Components/Header"
 import Footer from '../../Components/Footer'
@@ -24,7 +24,6 @@ function Employees() {
     const dispatch = useDispatch()
     const datas = JSON.parse(localStorage.getItem('form'))
     dispatch(update(datas))
-    const datasForm = useSelector(state => state.form.value)
     let table = null
 
     let columnsAccessors = null

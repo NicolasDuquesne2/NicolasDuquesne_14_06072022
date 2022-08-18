@@ -37,13 +37,15 @@ function Form() {
     let stateError = null
     let zipError = null
     let departmentError = null
-
     const datas = JSON.parse(localStorage.getItem('form'))
-    const onSubmit = ({firstname, name, startdate, department, birthdate, street, city, state, zip}) => {
+
+    const onSub = ({firstname, name, startdate, department, birthdate, street, city, state, zip}) => {
+        console.log("onsubmit")
         dispatch(add({firstname, name, startdate, department, birthdate, street, city, state, zip}))
         dispatch(change())
     }
 
+    console.log(errors)
     errors.firstname? firstNameError = <p className="error-message">{errors.firstname.message}</p>: firstNameError = null
     errors.name? nameError = <p className="error-message">{errors.name.message}</p> : nameError = null
     errors.birthdate? birthDateError = <p className="error-message">{errors.birthdate.message}</p> : birthDateError = null
@@ -59,7 +61,7 @@ function Form() {
         if (datasForm.length > 0) {
             localStorage.setItem('form', JSON.stringify(datasForm))
         } else {
-            dispatch(update(datas))
+            //dispatch(update(datas))
         }
 
     }, [datasForm])
@@ -68,7 +70,7 @@ function Form() {
     return(
         <React.Fragment>
             <h2>Create Employee</h2>
-            <form action="#" id="create-employee" onSubmit={handleSubmit(onSubmit)}>
+            <form action="#" id="create-employee" onSubmit={handleSubmit(onSub)}>
                 <label htmlFor="firstname">First Name</label>
                 <input type="text" id="firstname" {...register("firstname", {required: "Please, enter a valid first name"})}/>
                 {firstNameError}
@@ -78,20 +80,30 @@ function Form() {
                 <label htmlFor="birthdate">Date of Birth</label>
                 <Controller 
                     control={control}
-                    id='birthdate'
-                    {...register("birthdate", {required: "Please, enter a valid birth date"})}
-                    render={({ field }) => (
-                       <DatePickerComp />
+                    rules={{ required: "Please enter a valid date" }}
+                    name='birthdate'
+                    render={({ field: { ref, ...field }, fieldState: {invalid, birthdate} }) => (
+                       <DatePickerComp 
+                       {...field}
+                       error={invalid}
+                       inputRef={ref}
+                        id="birthdate"
+                       />
                      )}
                 />
                 {birthDateError}
                 <label htmlFor="startdate">Start Date</label>
                 <Controller 
                     control={control}
-                    id='startdate'
-                    {...register("startdate", {required: "Please, enter a valid date"})}
-                    render={({ field }) => (
-                       <DatePickerComp />
+                    rules={{ required: true }}
+                    name='startdate'
+                    render={({ field: { ref, ...field }, fieldState: {invalid, startdate} }) => (
+                       <DatePickerComp 
+                        {...field}
+                        error={invalid}
+                        inputRef={ref}
+                        id="startdate"
+                       />
                      )}
                 />
                 {startDateError}
