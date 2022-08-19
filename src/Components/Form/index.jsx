@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux/es/exports"
 import DatePickerComp from "../DatePicker"
 import { useForm, Controller } from "react-hook-form"
 import SelectMenu from "../SelectMenu"
-import ModalForm from "../ModalForm"
 import { add, update } from "../../Redux/Form/formSlice"
 import { change } from '../../Redux/Modal/modalSlice'
 import { departments } from "../../Params/departments"
@@ -26,7 +25,6 @@ function Form() {
 
     const dispatch = useDispatch()
     const datasForm = useSelector(state => state.form.value)
-    const displayModal = useSelector(state => state.modal.value)
     const { control, register, handleSubmit, formState: {errors} } = useForm()
     let nameError = null
     let firstNameError = null
@@ -48,8 +46,6 @@ function Form() {
     console.log(errors)
     errors.firstname? firstNameError = <p className="error-message">{errors.firstname.message}</p>: firstNameError = null
     errors.name? nameError = <p className="error-message">{errors.name.message}</p> : nameError = null
-    errors.birthdate? birthDateError = <p className="error-message">{errors.birthdate.message}</p> : birthDateError = null
-    errors.startdate? startDateError = <p className="error-message">{errors.startdate.message}</p> : startDateError = null
     errors.street? streetError = <p className="error-message">{errors.street.message}</p>: streetError = null
     errors.city? cityError = <p className="error-message">{errors.city.message}</p>: cityError = null
     errors.state? stateError = <p className="error-message">{errors.state.message}</p>: stateError = null
@@ -78,35 +74,9 @@ function Form() {
                 <input type="text" id="name" {...register("name", {required: "Please, enter a valid name"})}/>
                 {nameError}
                 <label htmlFor="birthdate">Date of Birth</label>
-                <Controller 
-                    control={control}
-                    rules={{ required: "Please enter a valid date" }}
-                    name='birthdate'
-                    render={({ field: { ref, ...field }, fieldState: {invalid, birthdate} }) => (
-                       <DatePickerComp 
-                       {...field}
-                       error={invalid}
-                       inputRef={ref}
-                        id="birthdate"
-                       />
-                     )}
-                />
-                {birthDateError}
+                <DatePickerComp />
                 <label htmlFor="startdate">Start Date</label>
-                <Controller 
-                    control={control}
-                    rules={{ required: "Please enter a valid date" }}
-                    name='startdate'
-                    render={({ field: { ref, ...field }, fieldState: {invalid, startdate} }) => (
-                       <DatePickerComp 
-                        {...field}
-                        error={invalid}
-                        inputRef={ref}
-                        id="startdate"
-                       />
-                     )}
-                />
-                {startDateError}
+                <DatePickerComp />
                 <fieldset className="address">
                     <legend>Address</legend>
 
@@ -133,9 +103,6 @@ function Form() {
                 {departmentError}
                 <input className="submit" type="submit" value="Save" />
             </form>
-            {displayModal && (
-                <ModalForm params={{text: 'Employee Created'}}/>
-            )}
         </React.Fragment>
         
     )
