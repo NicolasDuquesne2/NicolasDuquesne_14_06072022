@@ -17,17 +17,15 @@ import ModalForm from "../../Components/ModalForm"
  */
 function Home() {
 
-    const displayModal = useSelector(state => state.modal.value)
+    //const displayModal = useSelector(state => state.modal.value)
     return (
-        <div className="background">
+        <div className="background" id="main">
             <Header params={{title: "HRnet", link: {text: "View current employees", href: "/employees"}}} />
             <div className="container">
                 <Form />
             </div>
             <Footer />
-            {displayModal && (
-                <ModalForm params={{text: 'Employee Created'}}/>
-            )}
+            <ModalForm params={{text: 'Employee Created'}}/>
         </div>
     )
 }
