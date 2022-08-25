@@ -2,9 +2,9 @@
 import React, {useEffect} from "react"
 import { useSelector, useDispatch } from "react-redux/es/exports"
 import DatePickerComp from "../DatePicker"
-import { useForm, Controller } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import SelectMenu from "../SelectMenu"
-import { add, update } from "../../Redux/Form/formSlice"
+import { add } from "../../Redux/Form/formSlice"
 import { change } from '../../Redux/Modal/modalSlice'
 import { departments } from "../../Params/departments"
 import { states } from "../../Params/states"
@@ -25,25 +25,24 @@ function Form() {
 
     const dispatch = useDispatch()
     const datasForm = useSelector(state => state.form.value)
-    const { control, register, handleSubmit, formState: {errors} } = useForm()
+    const { register, handleSubmit, formState: {errors} } = useForm()
     let nameError = null
     let firstNameError = null
-    let birthDateError = null
-    let startDateError = null
     let streetError = null
     let cityError = null
     let stateError = null
     let zipError = null
     let departmentError = null
-    const datas = JSON.parse(localStorage.getItem('form'))
 
     const onSub = ({firstname, name, startdate, department, birthdate, street, city, state, zip}) => {
-        console.log("onsubmit")
         dispatch(add({firstname, name, startdate, department, birthdate, street, city, state, zip}))
         dispatch(change())
     }
 
-    console.log(errors)
+    /**
+     * errors checking
+     * Set a message when an error is detected
+     */
     errors.firstname? firstNameError = <p className="error-message">{errors.firstname.message}</p>: firstNameError = null
     errors.name? nameError = <p className="error-message">{errors.name.message}</p> : nameError = null
     errors.street? streetError = <p className="error-message">{errors.street.message}</p>: streetError = null
@@ -52,12 +51,15 @@ function Form() {
     errors.zip? zipError = <p className="error-message">{errors.zip.message}</p>: zipError = null
     errors.department? departmentError = <p className="error-message">{errors.zip.message}</p>: departmentError = null
 
+    /**
+     * This useEffect fires on a datasForm state changings. Works after the form submit
+     * store the new form entry in the local storage
+     * @param {Object} datasForm state of the form datas 
+     */
     useEffect(() => {
 
         if (datasForm.length > 0) {
             localStorage.setItem('form', JSON.stringify(datasForm))
-        } else {
-            //dispatch(update(datas))
         }
 
     }, [datasForm])

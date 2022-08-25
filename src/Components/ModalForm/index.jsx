@@ -14,7 +14,8 @@ import './modal.css'
 
 
 /**
- * Renders a modal displaying a message for the adding peaple form 
+ * Renders a modal displaying a message for the adding peaple form
+ * @param {Object} params contains text
  * @returns {React.ReactComponentElement}
  */
 

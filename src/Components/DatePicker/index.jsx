@@ -6,6 +6,10 @@ function DatePickerComp() {
 
     const [startDate, setStartDate] = useState(new Date())
 
+    /**
+     * Fires on a date selection. feeds a redux state
+     * @param {string} date 
+     */
     const handleChangeDate = (date) => {
         setStartDate(date)
     }

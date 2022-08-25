@@ -16,7 +16,6 @@ import ModalForm from "../../Components/ModalForm"
  */
 function Home() {
 
-    //const displayModal = useSelector(state => state.modal.value)
     return (
         <div className="background" id="main">
             <Header params={{title: "HRnet", link: {text: "View current employees", href: "/employees"}}} />

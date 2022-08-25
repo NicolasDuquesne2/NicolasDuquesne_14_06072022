@@ -11,14 +11,15 @@ import './header.css'
 
 /**
  * Renders the header component
+ * @param {Object} params contains a link and a title for the header
  * @returns {React.ReactComponentElement}
  */
-function Header (params) {
-    const pars = params.params
+function Header ({params}) {
+
     return(
         <div className="header-container">
-            <h1>{pars.title}</h1>
-            <CustomLink link={pars.link} />
+            <h1>{params.title}</h1>
+            <CustomLink link={params.link} />
         </div>
     )
 }
