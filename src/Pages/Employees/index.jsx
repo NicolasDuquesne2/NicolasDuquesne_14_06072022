@@ -5,7 +5,6 @@ import { update } from "../../Redux/Form/formSlice"
 import Header from "../../Components/Header"
 import Footer from '../../Components/Footer'
 import Table from "table-library-react/dist/Components/Table"
-//import Table from "../../Components/TableExtension/Table"
 import { dataMoke } from "../../Params/dataMoke"
 import "./employees.css"
 
@@ -20,10 +19,11 @@ import "./employees.css"
  * Renders the error page
  * @returns {React.ReactComponentElement}
  */
-function Employees() {
+function Employees({source}) {
 
     const dispatch = useDispatch()
-    const datas = JSON.parse(localStorage.getItem('form'))
+    let datas = null
+    source === "moke"? datas = dataMoke: source === "storage"? datas = JSON.parse(localStorage.getItem('form')): datas = null
     dispatch(update(datas))
     let table = null
 
@@ -35,7 +35,7 @@ function Employees() {
     if (datas != null && datas.length > 0) {
         columnsAccessors = Object.keys(datas[0])
         columnsAccessors.map((accessor, index) => (columns.push({label:columnsLabels[index], accessor, sortable: true})))
-        table = <Table payload={{datas: dataMoke, columns}} />
+        table = <Table payload={{datas: datas, columns}} />
     } else {
         table = <p className="errMessage">No data to show</p>
     }
