@@ -9,6 +9,7 @@ import { change } from '../../Redux/Modal/modalSlice'
 import { departments } from "../../Params/departments"
 import { states } from "../../Params/states"
 import './form.css'
+import { forwardRef } from "react"
 
 
 /**
@@ -63,7 +64,6 @@ function Form() {
         }
 
     }, [datasForm])
-
 
     return(
         <React.Fragment>
