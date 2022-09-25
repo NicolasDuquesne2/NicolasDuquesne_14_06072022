@@ -9,7 +9,6 @@ import { change } from '../../Redux/Modal/modalSlice'
 import { departments } from "../../Params/departments"
 import { states } from "../../Params/states"
 import './form.css'
-import { forwardRef } from "react"
 
 
 /**
@@ -62,6 +61,7 @@ function Form() {
         if (datasForm.length > 0) {
             localStorage.setItem('form', JSON.stringify(datasForm))
         }
+        //remove form datas
 
     }, [datasForm])
 
@@ -76,9 +76,9 @@ function Form() {
                 <input type="text" id="name" {...register("name", {required: "Please, enter a valid name"})}/>
                 {nameError}
                 <label htmlFor="birthdate">Date of Birth</label>
-                <DatePickerComp />
+                <DatePickerComp customId="birthdate"/>
                 <label htmlFor="startdate">Start Date</label>
-                <DatePickerComp />
+                <DatePickerComp customId="startdate"/>
                 <fieldset className="address">
                     <legend>Address</legend>
 

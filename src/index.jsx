@@ -7,6 +7,7 @@ import store from './Redux/store'
 import Home from './Pages/Home'
 import Employees from './Pages/Employees'
 import ErrorPage from './Pages/Error'
+import "./main.css"
 
 
 const root = createRoot(document.getElementById('root'));
@@ -16,7 +17,7 @@ root.render(
       <Provider store={store}>
         <Routes >
           <Route exact path="/" element={ <Home />} />
-          <Route path='/employees' element={<Employees source="storage"/>} />
+          <Route path='/employees' element={<Employees source="moke"/>} />
           <Route path="*" element ={<ErrorPage type="404"/>} />
         </Routes>
       </Provider>

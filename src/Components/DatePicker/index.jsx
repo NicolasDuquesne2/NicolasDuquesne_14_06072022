@@ -1,9 +1,14 @@
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
-import { useState } from "react"
+import { useState, forwardRef } from "react"
 
-function DatePickerComp() {
+const CustomInput = forwardRef(({customId, value, onChange, onClick}, ref) => {
+    return (
+        <input value={value} ref={ref} onClick={onClick} id={customId} onChange={(e) => onChange(e.target.value)}/>
+    )
+  })
 
+function DatePickerComp({customId}) {
     const [startDate, setStartDate] = useState(new Date())
 
     /**
@@ -19,6 +24,7 @@ function DatePickerComp() {
             <DatePicker 
                 selected={startDate}
                 onChange={handleChangeDate}
+                customInput={<CustomInput customId={customId}/>}
             />
         </div>
     )
